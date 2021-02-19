@@ -7,4 +7,8 @@ A simple program that converts Microsoft XLSX workbook files into CSV files.
 
 Now with multi-sheet export support.
 
+## Releases
+
+See Releases for pre-built binaries for your platform
+
 Forked from: https://github.com/tealeg/xlsx2csv
