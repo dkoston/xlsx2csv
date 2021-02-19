@@ -9,7 +9,9 @@ Now with multi-sheet export support.
 
 ## Releases
 
-See Releases for pre-built binaries for your platform
+See Releases for pre-built binaries for your platform.
+
+To release. Add a major,minor,patch tag to your PR labels.
 
 ## Attribution
 
