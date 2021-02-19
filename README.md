@@ -1,4 +1,4 @@
-#xlsx2csv
+# xlsx2csv
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/dkoston/xlsx2csv)](https://goreportcard.com/report/github.com/dkoston/xlsx2csv)
 [![Coverage Status](https://coveralls.io/repos/github/dkoston/xlsx2csv/badge.svg?branch=master)](https://coveralls.io/github/dkoston/xlsx2csv?branch=master)
@@ -10,5 +10,7 @@ Now with multi-sheet export support.
 ## Releases
 
 See Releases for pre-built binaries for your platform
+
+## Attribution
 
 Forked from: https://github.com/tealeg/xlsx2csv
