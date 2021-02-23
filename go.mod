@@ -3,6 +3,7 @@ module github.com/dkoston/xlsx2csv
 go 1.15
 
 require (
+	github.com/davecgh/go-spew v1.1.1
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/tealeg/xlsx/v3 v3.2.3
 	golang.org/x/build v0.0.0-20200402160453-61705b562fc9 // indirect
