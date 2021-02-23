@@ -96,15 +96,11 @@ func (f *File) GenerateCSVFromSheet(w io.Writer, index int, csvOpts csvOptSetter
 
 // GenerateCSVsFromAllSheets iterates through all sheets and saves them as CSVs using their name
 func (f *File) GenerateCSVsFromAllSheets(outFilepath string, csvOpts csvOptSetter) error {
-	// Get sheet names
-	keys := make([]string, 0, len(f.XLSXData.Sheet))
-	for key := range f.XLSXData.Sheet {
-		keys = append(keys, key)
-	}
 
-	// Keys come out backwards
-	for i, j := 0, len(keys)-1; i < j; i, j = i+1, j-1 {
-		keys[i], keys[j] = keys[j], keys[i]
+	// Get sheet names
+	keys := make([]string, 0, len(f.XLSXData.Sheets))
+	for i := 0; i < len(f.XLSXData.Sheet); i++ {
+		keys = append(keys, f.XLSXData.Sheets[i].Name)
 	}
 
 	for i := 0; i < f.SheetCount(); i++ {
