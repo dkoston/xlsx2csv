@@ -84,7 +84,7 @@ func (f *File) GenerateCSVFromSheet(w io.Writer, index int, csvOpts csvOptSetter
 			}
 		}
 		return writer.Write(vals)
-	})
+	}, x.SkipEmptyRows)
 
 	if err != nil {
 		return err

@@ -14,8 +14,6 @@ import (
 	"github.com/dkoston/xlsx2csv/xlsx"
 )
 
-type csvOptSetter func(*csv.Writer)
-
 func main() {
 	var (
 		outFilename = flag.String("o", "-", "filename to output to. -=stdout (default == STDOUT)")
@@ -25,13 +23,16 @@ func main() {
 		allSheets   = flag.Bool("a", false, "Convert all sheets using the sheet name (lowercased with _ for spaces) as the output file name (default == false)")
 	)
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, `%s
+		_, err := fmt.Fprintf(os.Stderr, `%s
 	dumps the given xlsx file's chosen sheet as a CSV,
 	with the specified delimiter, into the specified output.
 
 Usage:
 	%s [flags] <xlsx-to-be-read>
 `, os.Args[0], os.Args[0])
+		if err != nil {
+			log.Fatal(err)
+		}
 		flag.PrintDefaults()
 	}
 
