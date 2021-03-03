@@ -111,7 +111,8 @@ func (f *File) GenerateCSVsFromAllSheets(outFilepath string, csvOpts csvOptSette
 	}
 
 	for i := 0; i < f.SheetCount(); i++ {
-		outFile, err := GetOutFile(keys[i]+".csv", outFilepath)
+		sheetFilename := getSheetFilename(keys[i]+".csv")
+		outFile, err := GetOutFile(sheetFilename, outFilepath)
 		if err != nil {
 			return err
 		}
@@ -142,5 +143,5 @@ func getSheetFilename(sheetName string) string {
 	reg := regexp.MustCompile("[^a-zA-Z0-9_.]+")
 	name = reg.ReplaceAllString(name, "")
 
-	return name + ".csv"
+	return name
 }
