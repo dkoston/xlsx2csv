@@ -67,14 +67,18 @@ func (f *File) GenerateCSVFromSheet(w io.Writer, index int, csvOpts csvOptSetter
 	}
 
 	sheet := f.XLSXData.Sheets[index]
-	var vals []string
 	err := sheet.ForEachRow(func(row *x.Row) error {
+		var vals []string
+		foundNonEmpty := false
+
 		if row != nil {
-			vals = vals[:0]
 			err := row.ForEachCell(func(cell *x.Cell) error {
 				str, err := cell.FormattedValue()
 				if err != nil {
 					return err
+				}
+				if str != "" {
+					foundNonEmpty = true
 				}
 				vals = append(vals, str)
 				return nil
@@ -83,7 +87,10 @@ func (f *File) GenerateCSVFromSheet(w io.Writer, index int, csvOpts csvOptSetter
 				return err
 			}
 		}
-		return writer.Write(vals)
+		if foundNonEmpty {
+			return writer.Write(vals)
+		}
+		return nil
 	}, x.SkipEmptyRows)
 
 	if err != nil {
