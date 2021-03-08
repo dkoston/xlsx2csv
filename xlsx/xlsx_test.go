@@ -93,7 +93,7 @@ No;;Yes
 	}
 }
 
-func Test_getSheetFilename(t *testing.T) {
+func Test_normalizeFilename(t *testing.T) {
 	type testCase struct {
 		sheetName string
 		fileName  string
@@ -102,20 +102,20 @@ func Test_getSheetFilename(t *testing.T) {
 	testCases := []testCase{
 		{
 			sheetName: "[1]Speci@lCh$$rs Time",
-			fileName:  "1specilchrs_time.csv",
+			fileName:  "1specilchrs_time",
 		},
 		{
 			sheetName: "UG.Industries",
-			fileName:  "ug.industries.csv",
+			fileName:  "ug.industries",
 		},
 		{
 			sheetName: "Multiple Spaces Here!",
-			fileName:  "multiple_spaces_here.csv",
+			fileName:  "multiple_spaces_here",
 		},
 	}
 
 	for i := 0; i < len(testCases); i++ {
-		name := getSheetFilename(testCases[i].sheetName)
+		name := normalizeFilename(testCases[i].sheetName)
 		if name != testCases[i].fileName {
 			t.Errorf("expected: %s. got %s. test case: %d", testCases[i].fileName, name, i)
 		}

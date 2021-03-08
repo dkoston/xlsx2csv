@@ -102,7 +102,7 @@ func (f *File) GenerateCSVFromSheet(w io.Writer, index int, csvOpts csvOptSetter
 }
 
 // GenerateCSVsFromAllSheets iterates through all sheets and saves them as CSVs using their name
-func (f *File) GenerateCSVsFromAllSheets(outFilepath string, csvOpts csvOptSetter) error {
+func (f *File) GenerateCSVsFromAllSheets(outFilepath string, csvOpts csvOptSetter, lowerCaseOutputfiles bool) error {
 
 	// Get sheet names
 	keys := make([]string, 0, len(f.XLSXData.Sheets))
@@ -111,7 +111,11 @@ func (f *File) GenerateCSVsFromAllSheets(outFilepath string, csvOpts csvOptSette
 	}
 
 	for i := 0; i < f.SheetCount(); i++ {
-		sheetFilename := getSheetFilename(keys[i]+".csv")
+		sheetFilename := keys[i]+".csv"
+		if lowerCaseOutputfiles {
+			sheetFilename= normalizeFilename(sheetFilename)
+		}
+
 		outFile, err := GetOutFile(sheetFilename, outFilepath)
 		if err != nil {
 			return err
@@ -131,8 +135,8 @@ func (f *File) GenerateCSVsFromAllSheets(outFilepath string, csvOpts csvOptSette
 	return nil
 }
 
-// getSheetFilename takes the sheet name and standardizes the output filename
-func getSheetFilename(sheetName string) string {
+// normalizeFilename takes the sheet name and standardizes the output filename
+func normalizeFilename(sheetName string) string {
 	name := strings.ToLower(sheetName)
 
 	// Replace spaces with _

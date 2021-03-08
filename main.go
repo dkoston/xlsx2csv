@@ -20,7 +20,8 @@ func main() {
 		outFilepath = flag.String("p", "", "path to output to. Current directory if not set")
 		sheetIndex  = flag.Int("i", 0, "Index of sheet to convert, zero based (default == 0")
 		delimiter   = flag.String("d", ",", "Delimiter to use between fields (default == ,")
-		allSheets   = flag.Bool("a", false, "Convert all sheets using the sheet name (lowercased with _ for spaces) as the output file name (default == false)")
+		allSheets   = flag.Bool("a", false, "Convert all sheets using the sheet name as the output file name (default == false)")
+		lowerCaseOutputfiles = flag.Bool("l", false, "Used in conjunciton with 'a'. If specified, all output file names will be lowercased and spaces replaced with _")
 	)
 	flag.Usage = func() {
 		_, err := fmt.Fprintf(os.Stderr, `%s
@@ -52,7 +53,7 @@ Usage:
 
 	if *allSheets {
 		// Get the number of sheets from the XSLX file
-		err = file.GenerateCSVsFromAllSheets(*outFilepath, csvOpts)
+		err = file.GenerateCSVsFromAllSheets(*outFilepath, csvOpts, *lowerCaseOutputfiles)
 		if err != nil {
 			log.Fatal(err)
 		}
